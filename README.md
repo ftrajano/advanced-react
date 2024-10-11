@@ -7,6 +7,33 @@
 
 Na maioria dos casos, o React recomenda o uso de componentes controlados para implementar formulários. Embora essa abordagem esteja alinhada com o modelo declarativo do React, os campos de formulário não controlados ainda são uma opção válida e têm seu mérito. Vamos analisar as diferenças entre as duas abordagens e quando você deve usar cada método.
 
+```react
+const Form = () => { 
+ return ( 
+   <div> 
+     <input type="text" /> 
+   </div> 
+ ); 
+};
+```
+
+Usando REF
+```
+const Form = () => { 
+ const inputRef = useRef(null); 
+
+ const handleSubmit = () => { 
+   const inputValue = inputRef.current.value; 
+   // Do something with the value 
+ } 
+ return ( 
+   <form onSubmit={handleSubmit}> 
+     <input ref={inputRef} type="text" /> 
+   </form> 
+ ); 
+};
+```
+
 ### Uncontrolled Inputs (Entradas Não Controladas)
 
 Entradas não controladas são como entradas de formulário HTML padrão:
@@ -25,6 +52,25 @@ Entradas controladas são gerenciadas pelo estado do React:
 - Oferecem mais controle sobre o comportamento e os dados do formulário.
 - São ideais para validação em tempo real, formatação de entrada e manipulações complexas.
 
+```
+const Form = () => { 
+ const [value, setValue] = useState(""); 
+
+ const handleChange = (e) => { 
+   setValue(e.target.value) 
+ } 
+
+ return ( 
+   <form> 
+     <input 
+       value={value} 
+       onChange={handleChange} 
+       type="text" 
+     /> 
+   </form> 
+ ); 
+};
+```
 
 ## Comparação entre Componentes Controlados e Não Controlados
 
